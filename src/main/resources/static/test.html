@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <cmp :ms="message" :ls="list"></cmp>
+</div>
+<template id="cmp1">
+    <div>
+        <p>{{ms}}</p>
+        <div>{{ls}}</div>
+    </div>
+</template>
+<script>
+    let cmp = {
+        template:'#cmp1',
+        props:['ms','ls']
+    }
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            message:"123",
+            list:["aaa","bbb","ccc"]
+        },
+        components:{
+            cmp
+        }
+    })
+</script>
+</body>
+</html>

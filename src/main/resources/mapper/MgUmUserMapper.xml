@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mogui.mall.happymall.mapper.MgUmUserMapper">
+    <resultMap id="selectMgUmUserRolesMap" type="com.mogui.mall.happymall.dto.MgUmUserDto">
+        <id property="id" column="id"></id>
+        <result column="userName" property="userName"></result>
+        <result column="nickName" property="nickName"></result>
+        <result column="userPwd" property="userPwd"></result>
+        <result column="sex" property="sex"></result>
+        <result column="headImgUrl" property="headImgUrl"></result>
+        <result column="status" property="status"></result>
+        <result column="createTime" property="createTime"></result>
+        <collection  property="roleList" javaType="list"  ofType="com.mogui.mall.happymall.pojo.MgUmRole" >
+
+            <result property="roleName" column="roleName"></result>
+        </collection>
+    </resultMap>
+    <select id="selectMgUmUserRoles" resultMap="selectMgUmUserRolesMap" parameterType="com.mogui.mall.happymall.dto.MgUmUserDto" >
+      select
+            uu.id,
+            uu.user_name as userName,
+            uu.nick_name as nickName,
+            uu.user_pwd as userPwd,
+            uu.sex,
+            uu.head_img_url as headImgUrl,
+            uu.status,
+            uu.create_time as createTime,
+            ur.id as roleId,
+			ur.role_name as roleName
+        from
+            mg_um_user uu
+            left join mg_um_user_role_relation rr on uu.id = rr.user_id
+            left join mg_um_role ur on ur.id = rr.role_id
+		<where>
+            <if test="userName != '' and userName != null ">
+                uu.user_name = #{userName}
+            </if>
+        </where>
+        order by id desc
+		limit ${start},${pageSize}
+    </select>
+    <select id="selectMgUmUser" resultType="com.mogui.mall.happymall.pojo.MgUmUser" >
+        select
+            id,
+            user_name as userName,
+            nick_name as nickName,
+            user_pwd as userPwd,
+            sex,
+            head_img_url as headImgUrl,
+            status,
+            create_time as createTime
+        from mg_um_user
+        where
+            user_name = #{userName}
+    </select>
+    <select id="selectMgUmUserDetail" resultType="com.mogui.mall.happymall.pojo.MgUmUser" parameterType="com.mogui.mall.happymall.dto.MgUmUserDto">
+        select
+            id,
+            user_name as userName,
+            nick_name as nickName,
+            user_pwd as userPwd,
+            sex,
+            head_img_url as headImgUrl,
+            status,
+            create_time as createTime
+            from mg_um_user
+            <where>
+                <if test="userName != '' and userName != null">
+                  and  user_name = #{userName}
+                </if>
+                <if test="nickName != '' and nickName != null">
+                  and  nick_name = #{nickName}
+                </if>
+                <if test="userPwd != '' and userPwd != null">
+                 and  user_pwd = #{userPwd}
+                </if>
+            </where>
+
+    </select>
+    <insert id="insertMgUmUser" parameterType="com.mogui.mall.happymall.pojo.MgUmUser">
+        insert into mg_um_user(user_name,nick_name,user_pwd,sex,head_img_url,status,create_time)
+        value (#{userName},#{nickName},#{userPwd},#{sex},#{headImgUrl},#{status},now())
+    </insert>
+
+    <update id="updateMgUmUser" parameterType="com.mogui.mall.happymall.pojo.MgUmUser">
+        update mg_um_user 
+        <set>
+            <if test="userName!=null || userName!='' ">
+                user_name = #{userName},
+            </if>
+            <if test="nickName!=null || nickName!='' ">
+                nick_name = #{nickName},
+            </if>
+            <if test="userPwd!=null || userPwd!='' ">
+                user_pwd = #{userPwd},
+            </if>
+            <if test="sex!=null || sex!='' ">
+                sex = #{sex},
+            </if>
+            <if test="headImgUrl!=null || headImgUrl!='' ">
+                head_img_url = #{headImgUrl},
+            </if>
+            <if test="status!=null || status!='' ">
+                status = #{status}
+            </if>
+        </set>
+       where id = #{id}
+    </update>
+<!--    删除用户-->
+    <delete id="deleteMgUmUser" parameterType="java.lang.Integer">
+       DELETE from mg_um_user WHERE id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mogui.mall.happymall.mapper.MgCmCommodityTypeMapper">
+    <select id="selectAllCommodityType" resultType="com.mogui.mall.happymall.pojo.MgCmCommodityType" >
+        select
+        id,
+        commodity_type as commodityType,
+        commodity_description as commodityDescription,
+        status,
+        create_time as createTime
+        from mg_cm_commodity_type
+
+    </select>
+    <select id="selectCommodityType" resultType="com.mogui.mall.happymall.pojo.MgCmCommodityType" parameterType="com.mogui.mall.happymall.dto.MgCmCommodityTypeDto">
+        select
+        id,
+        commodity_type as commodityType,
+        commodity_description as commodityDescription,
+        status,
+        create_time as createTime
+        from mg_cm_commodity_type
+            <where>
+                <if test="status != '' and status != null or status==0">
+                    and status = #{status}
+                </if>
+                <if test="commodityType != '' and commodityType != null">
+                    and commodity_type = #{commodityType}
+                </if>
+
+            </where>
+    </select>
+    <insert id="insertCommodityType" parameterType="com.mogui.mall.happymall.dto.MgCmCommodityTypeDto">
+        insert into mg_cm_commodity_type(commodity_type,commodity_description,create_time)
+        value (#{commodityType},#{commodityDescription},now())
+    </insert>
+
+    <update id="updateCommodityType" parameterType="com.mogui.mall.happymall.pojo.MgCmCommodityType">
+        update mg_cm_commodity_type
+        <set>
+            <if test="commodityType!=null || commodityType!='' ">
+                commodity_type = #{commodityType},
+            </if>
+            <if test="commodityDescription!=null || commodityDescription!='' ">
+                commodity_description = #{commodityDescription},
+            </if>
+            <if test="status!=null || status!='' ">
+                status = #{status},
+            </if>
+        </set>
+       where id = #{id}
+    </update>
+    <update id="updateCommodityTypeStatus">
+     update mg_cm_commodity_type set status = #{status}
+     where id in
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+    </update>
+    <delete id="deleteCommodityTypes" >
+        delete from mg_cm_commodity_type
+            where id in
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+    </delete>
+</mapper>

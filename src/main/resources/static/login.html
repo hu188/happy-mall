@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Smart Login Form Responsive Widget Template</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--    vue-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--    iview-->
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+<body>
+    <div id="app">
+        <!--header-->
+        <div class="agileheader">
+            <h1></h1>
+        </div>
+        <!--//header-->
+        <!--main-->
+        <div class="main-w3l">
+            <div class="w3layouts-main">
+                <h2>登  录</h2>
+
+                    <input v-model="userName" name="userName" maxlength="11" type="text" placeholder="请输入手机号"/>
+                    <input v-model="userPwd" name="userPwd" type="password" placeholder="请输入密码"/>
+                    <span><input type="checkbox"/>记住我</span>
+                    <h6><a href="#">忘记密码?</a></h6>
+                    <div class="clear"></div>
+                    <input type="submit" value="登 录" name="login" @click="toLogin">
+
+                <p>还没有账号 ?<a href="./mall/register.html">立即注册</a></p>
+            </div>
+        </div>
+        <!--//main-->
+        <!--footer-->
+        <div class="footer-w3l">
+            <p>&copy; Website author little devil. 2020</a>
+            </p>
+        </div>
+        <!--//footer-->
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                userName:'',
+                userPwd:""
+            },
+            methods:{
+                toLogin(){
+                    var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+                    if(this.userName == '' || this.userPwd == ''){
+                        this.$Message.info('请输入用户名和密码');
+                    }else if(!myreg.test(this.userName)){
+                        this.$Message.info('请输入正确的手机号');
+                    }else{
+                        const that =this;
+                        axios.get("/login",{params:{userName: that.userName,userPwd: that.userPwd}}).then (function (res) {
+                            if(res.data.code==0){
+                                console.log(res.data.data);
+                                document.cookie="token="+res.data.data;
+                                window.location.href='./mall/index.html';
+                            }else{
+                                that.$Message.info(res.data.msg);
+                            }
+                        })
+                    }
+                 },
+
+            }
+        })
+
+    </script>
+</body>
+</html>

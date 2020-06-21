@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mogui.mall.happymall.mapper.MgUmUserRoleRelationMappper">
+    <!-- 删除用户角色 -->
+    <delete id="deleteUserRoles">
+        delete from mg_um_user_role_relation where user_id = #{userId}
+    </delete>
+    <!--    编辑用户角色-->
+    <insert id="insertUserRoleInfo" >
+        insert into mg_um_user_role_relation(role_id,user_id) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.roleId},#{item.userId})
+        </foreach>
+    </insert>
+
+</mapper>
