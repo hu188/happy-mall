@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @Api(tags = "MgCommodityController", description = "商品管理")
-public class MgCommodityController {
+public class MgCmCommodityController {
 
 
     @Autowired

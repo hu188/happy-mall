@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mogui.mall.happymall.mapper.MgUmPermissionMapper">
+    <select id="selectPermissionListByUserId" resultType="com.mogui.mall.happymall.pojo.MgUmPermission">
+       SELECT
+            mp.id,
+            mp.pid,
+            mp.name,
+            mp.value,
+            mp.type,
+            mp.sort,
+            mp.uri
+        from mg_um_user_role_relation rr
+        LEFT JOIN mg_um_role mr on mr.id = rr.role_id
+        LEFT JOIN mg_um_role_permission_relation pr on mr.id = pr.role_id
+        LEFT JOIN mg_um_permission mp on pr.permission_id = mp.id
+        where rr.user_id = #{userId}
+    </select>
+    <insert id="addPermission" parameterType="com.mogui.mall.happymall.pojo.MgUmPermission">
+        insert into mg_um_permission(pid,name,value,icon,type,uri,status,sort,create_time)
+        values (#{pid},#{name},#{value},#{icon},#{type},#{uri},#{status},#{sort},NOW())
+    </insert>
+    <delete id="deletePermission">
+        delete from mg_um_permission where id = #{id} and pid = #{id}
+    </delete>
+    <update id="updatePermission">
+        update
+            mg_um_permission
+        <set>
+            <if test=" name !='' and name != null ">
+                set name = #{name},
+            </if>
+            <if test=" value !='' and value != null ">
+                 value = #{value},
+            </if>
+            <if test=" icon !='' and icon != null ">
+                 icon = #{icon},
+            </if>
+            <if test=" type !='' and type != null ">
+                 type = #{type},
+            </if>
+            <if test=" uri !='' and uri != null ">
+                uri = #{uri},
+            </if>
+            <if test=" status !='' and status != null ">
+                status = #{status},
+            </if>
+            <if test=" sort !='' and sort != null ">
+                sort = #{sort}
+            </if>
+        </set>
+
+    </update>
+
+    <select id="selectPermission" resultType="com.mogui.mall.happymall.pojo.MgUmPermission" parameterType="com.mogui.mall.happymall.pojo.MgUmPermission">
+        select
+            id,
+            pid,
+            name,
+            value,
+            icon,
+            type,
+            uri,
+            status,
+            sort,
+            create_time as createTime
+        from
+            mg_um_permission
+        <where>
+            <if test=" name !='' and name != null ">
+                set name = #{name},
+            </if>
+            <if test=" status !='' and status != null ">
+                status = #{status},
+            </if>
+        </where>
+    </select>
+</mapper>

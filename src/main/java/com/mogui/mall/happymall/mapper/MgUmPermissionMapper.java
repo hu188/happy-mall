@@ -16,8 +16,29 @@ import java.util.List;
 public interface MgUmPermissionMapper {
 
     /**
-     * 根据用户id查找用户资源
+     * 根据用户id查找用户权限
      */
     List<MgUmPermission> selectPermissionListByUserId(Integer id);
+
+
+    /**
+     * 添加权限
+     */
+    int addPermission(MgUmPermission mgUmPermission);
+
+    /**
+     * 删除权限
+     */
+    int deletePermission(Integer id);
+
+    /**
+     * 修改权限
+     */
+    int updatePermission(MgUmPermission mgUmPermission);
+
+    /**
+     * 查找权限
+     */
+    List<MgUmPermission> selectPermission(MgUmPermission mgUmPermission);
 
 }
