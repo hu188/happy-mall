@@ -17,7 +17,7 @@ import java.util.List;
  * @declare
  */
 @Controller
-@Api(tags = "MgUmRoleController", description = "权限管理")
+@Api(tags = "MgUmPermissionController", description = "权限管理")
 @RequestMapping(value = "/permission")
 public class MgUmPermissionController {
 

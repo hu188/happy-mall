@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mogui.mall.happymall.mapper.MgCmCommodityMapper">
+
+    <insert id="addCommodity" parameterType="com.mogui.mall.happymall.dto.MgCmCommodityTypeDto">
+        insert into mg_cm_commodity(commodity_type,commodity_name,original_price,selling_price,remark,status,create_time)
+        value (#{commodityType},#{commodityName},#{originalPrice},#{sellingPrice},#{remark},#{status},now())
+    </insert>
+
+    <delete id="deleteCommodity" >
+        delete from mg_cm_commodity_type
+        where id in
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateCommodity" parameterType="com.mogui.mall.happymall.pojo.MgCmCommodityType">
+        update mg_cm_commodity
+        <set>
+            <if test="commodityType!= null || commodityType != '' ">
+                commodity_type = #{commodityType},
+            </if>
+            <if test="commodityName != null || commodityName != '' ">
+                commodity_name = #{commodityName},
+            </if>
+            <if test="originalPrice != null || originalPrice != '' ">
+                original_price = #{originalPrice},
+            </if>
+            <if test="sellingPrice != null || sellingPrice != '' ">
+                selling_price = #{sellingPrice},
+            </if>
+            <if test="remark != null || remark != '' ">
+                remark = #{remark},
+            </if>
+            <if test="status != null || status !='' ">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectCommodity" resultType="com.mogui.mall.happymall.pojo.MgCmCommodityType">
+        select
+        id,
+        commodity_type as commodityType,
+        commodity_name as commodityName,
+        original_price as originalPrice,
+        selling_price as sellingPrice,
+        remark,
+        status,
+        create_time as createTime
+        from mg_cm_commodity
+            <where>
+                <if test="id != '' and id != null">
+                    and id = #{id}
+                </if>
+                <if test="commodityType != '' and commodityType != null">
+                    and commodity_type = #{commodityType}
+                </if>
+                <if test="commodityName != '' and commodityName != null">
+                    and commodity_name = #{commodityName}
+                </if>
+                <if test="status != '' and status != null or status==0">
+                    and status = #{status}
+                </if>
+            </where>
+    </select>
+
+
+
+
+</mapper>

@@ -1,56 +1,63 @@
 package com.mogui.mall.happymall.Controller;
 
-import com.mogui.mall.happymall.Seivice.MgCmCommodityTypeService;
-import com.mogui.mall.happymall.dto.MgCmCommodityTypeDto;
-
-import com.mogui.mall.happymall.pojo.MgCmCommodityType;
-import com.mogui.mall.happymall.utils.JsonUtils;
+import com.mogui.mall.happymall.Seivice.MgCmCommodityService;
+import com.mogui.mall.happymall.common.ResponseVO;
+import com.mogui.mall.happymall.pojo.MgCmCommodity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-@RestController
-@Api(tags = "MgCommodityController", description = "商品管理")
+@Controller
+@Api(tags = "MgCmCommodityController",description = "商品管理类")
+@RequestMapping(value = "/commodity")
 public class MgCmCommodityController {
 
-
     @Autowired
-    private MgCmCommodityTypeService mgCmCommodityTypeService;
+    private MgCmCommodityService mgCmCommodityService;
 
-    @PostMapping(value = "addCommodityType")
-    @ApiOperation("添加商品类型")
-    public String addCommodityType(@RequestBody MgCmCommodityTypeDto mgCmCommodityTypeDto){
-            return mgCmCommodityTypeService.insertCommodityType(mgCmCommodityTypeDto).toJSON();
+    @ApiOperation(value = "添加商品")
+    @RequestMapping(value = "/addCommodity",method = RequestMethod.POST)
+    @ResponseBody
+    public String addCommodity(@RequestBody MgCmCommodity mgCmCommodity){
+        int result = mgCmCommodityService.addCommodity(mgCmCommodity);
+        if(result>0){
+            return ResponseVO.build().toJSON();
+        }else{
+            return ResponseVO.build().setMsg(400,"添加失败，请重试！").toJSON();
+        }
     }
-
-    @GetMapping(value = "getCommodityType")
-    @ApiOperation("查找商品类型")
-    public String getCommodityType(MgCmCommodityTypeDto mgCmCommodityTypeDto){
-        return mgCmCommodityTypeService.selectCommodityType(mgCmCommodityTypeDto).toJSON();
+    @ApiOperation(value = "删除商品")
+    @RequestMapping(value = "/deleteCommodity",method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteCommodity(@RequestParam List<Integer> ids){
+        int result = mgCmCommodityService.deleteCommodity(ids);
+        if(result>0){
+            return ResponseVO.build().toJSON();
+        }else{
+            return ResponseVO.build().setMsg(400,"删除失败，请重试！").toJSON();
+        }
     }
-
-    @PostMapping(value="deleteCommodityType")
-    @ApiOperation("删除商品类型")
-    public String deleteCommodityType(@RequestParam("ids[]")List<Integer> ids){
-        System.out.println(ids);
-        return mgCmCommodityTypeService.deleteCommodityTypes(ids).toJSON();
+    @ApiOperation(value = "修改商品")
+    @RequestMapping(value = "/updateCommodity",method = RequestMethod.POST)
+    @ResponseBody
+    public String updateCommodity(@RequestBody MgCmCommodity mgCmCommodity){
+        int result = mgCmCommodityService.updateCommodity(mgCmCommodity);
+        if(result>0){
+            return ResponseVO.build().toJSON();
+        }else{
+            return ResponseVO.build().setMsg(400,"修改失败，请重试！").toJSON();
+        }
     }
-    @PostMapping(value="updateCommodityType")
-    @ApiOperation("修改商品类型")
-    public String updateCommodityType(@RequestBody MgCmCommodityType mgCmCommodityType){
-        return mgCmCommodityTypeService.updateCommodityType(mgCmCommodityType).toJSON();
-    }
-
-    @PostMapping(value="updateCommodityTypeStatus")
-    @ApiOperation("修改商品类型发布状态")
-    public String updateCommodityTypeStatus(@RequestParam("ids[]") List<Integer> ids,@RequestParam int status){
-        return mgCmCommodityTypeService.updateCommodityTypeStatus(ids,status).toJSON();
+    @ApiOperation(value = "查询商品")
+    @RequestMapping(value = "/selectCommodity",method = RequestMethod.GET)
+    @ResponseBody
+    public String selectCommodity(@RequestParam String commodityName,@RequestParam Integer commodityType,
+                                  @RequestParam Integer start,@RequestParam Integer pageSize){
+        List<MgCmCommodity> mgCmCommodities = mgCmCommodityService.selectCommodity(commodityName,commodityType,start,pageSize);
+        return ResponseVO.build().setData(mgCmCommodities).toJSON();
     }
 }

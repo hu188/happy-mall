@@ -1,0 +1,54 @@
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find java src paths:  [F:\hu\happy-mall\src\main\java\]
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: project type not set, try to figure out...
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start find controllers in path : F:\hu\happy-mall\src\main\java\
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : MgCmCommodityController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : MgUmPermissionController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : MgUmRoleController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: find controller file : MgUmUserController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : MgCmCommodityController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : MgCmCommodityController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : MgUmPermissionController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : MgUmPermissionController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : MgUmRoleController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : MgUmRoleController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to parse controller file : MgUmUserController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to parse controller file : MgUmUserController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate api docs start...
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgCmCommodityController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgCmCommodityController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgUmPermissionController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgUmPermissionController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgUmRoleController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgUmRoleController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: start to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgUmUserController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: success to generate docs for controller file : F:\hu\happy-mall\src\main\java\com\mogui\mall\happymall\Controller\MgUmUserController.java
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate index start !!!
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate index done !!!
+六月 23, 2020 2:50:35 下午 io.github.yedaxia.apidocs.LogUtils info
+信息: info: generate api docs done !!!
