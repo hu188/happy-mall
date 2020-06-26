@@ -46,5 +46,47 @@ public class MgUmRoleController {
         List<MgUmRole> roles =  mgUmRoleService.getRoleByPageSize(roleName,start,pageSize);
         return ResponseVO.build().setData(roles).toJSON();
     }
+    /**
+     * 添加角色
+     */
+    @PostMapping("/addRole")
+    @ApiOperation(value="添加角色")
+    @ResponseBody
+    public String addRole(@RequestBody MgUmRole mgUmRole){
+        int result = mgUmRoleService.addRole(mgUmRole);
+        if(result>0){
+            return ResponseVO.build().toJSON();
+        }else{
+            return ResponseVO.build().setMsg(400,"添加失败,请重试！").toJSON();
+        }
 
+    }
+
+    /**
+     *
+     */
+    @PostMapping("/deleteRole")
+    @ApiOperation(value="删除角色")
+    @ResponseBody
+    public String deleteRole(@RequestParam Integer id){
+        int result = mgUmRoleService.deleteRole(id);
+        if(result>0){
+            return ResponseVO.build().toJSON();
+        }else{
+            return ResponseVO.build().setMsg(400,"删除失败,请重试！").toJSON();
+        }
+
+    }
+    @PostMapping("/saveUpdateRole")
+    @ApiOperation(value="修改角色")
+    @ResponseBody
+    public String saveUpdateRole(@RequestBody MgUmRole mgUmRole){
+        int result = mgUmRoleService.updateRole(mgUmRole);
+        if(result>0){
+            return ResponseVO.build().toJSON();
+        }else{
+            return ResponseVO.build().setMsg(400,"修改失败,请重试！").toJSON();
+        }
+
+    }
 }

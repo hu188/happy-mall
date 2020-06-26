@@ -30,9 +30,39 @@ public class MgUmRoleServiceImpl implements MgUmRoleService {
         return mgUmRoleMapper.selectAllRole();
     }
 
+    /**
+     * 根据名称查找角色
+     * @param roleName
+     * @param start
+     * @param pageSize
+     * @return
+     */
     @Override
     public List<MgUmRole> getRoleByPageSize(String roleName,Integer start,Integer pageSize) {
         PageHelper.startPage(start,pageSize);
-        return mgUmRoleMapper.selectAllRole();
+        MgUmRole mgUmRole = new MgUmRole();
+        mgUmRole.setRoleName(roleName);
+        return mgUmRoleMapper.selectRole(mgUmRole);
+    }
+
+    /**
+     * 添加角色
+     * @param mgUmRole
+     * @return
+     */
+    @Override
+    public int addRole(MgUmRole mgUmRole) {
+
+        return mgUmRoleMapper.addRole(mgUmRole);
+    }
+
+    @Override
+    public int deleteRole(Integer id) {
+        return mgUmRoleMapper.deleteRole(id);
+    }
+
+    @Override
+    public int updateRole(MgUmRole mgUmRole) {
+        return mgUmRoleMapper.updateRole(mgUmRole);
     }
 }

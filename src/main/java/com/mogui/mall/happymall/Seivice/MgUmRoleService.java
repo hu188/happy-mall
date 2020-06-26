@@ -15,4 +15,13 @@ public interface MgUmRoleService {
     List<MgUmRole> selectAllRole();
 
     List<MgUmRole> getRoleByPageSize(String roleName,Integer start,Integer pageSize);
+
+    //添加角色
+    int addRole(MgUmRole mgUmRole);
+
+    //删除角色
+    int deleteRole(Integer id);
+
+    //修改角色
+    int updateRole(MgUmRole mgUmRole);
 }

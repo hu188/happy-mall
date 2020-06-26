@@ -10,5 +10,38 @@
             create_time as createTime
         from mg_um_role
     </select>
+    <select id="selectRole" resultType="com.mogui.mall.happymall.pojo.MgUmRole">
+        select
+            id,
+            role_name as roleName,
+            remark,
+            status,
+            create_time as createTime
+        from mg_um_role
+        <where>
+            <if test=" id != '' and id != null ">
+                id = #{id}
+            </if>
+            <if test=" roleName != '' and roleName != null ">
+                role_name = #{roleName}
+            </if>
+            <if test=" status != '' and status != null ">
+                status = #{status}
+            </if>
+        </where>
+        order by id desc
+    </select>
 
+    <insert id="addRole" >
+        insert into mg_um_role(role_name,remark,status,create_time) values
+            (#{roleName},#{remark},#{status},NOW())
+    </insert>
+
+    <delete id="deleteRole">
+        delete from mg_um_role where id = #{id}
+    </delete>
+
+    <update id="updateRole">
+        update  mg_um_role set role_name = #{roleName},remark = #{remark},status = #{status} where id = #{id}
+    </update>
 </mapper>
