@@ -1,7 +1,9 @@
 package com.mogui.mall.happymall.Seivice;
 
+import com.mogui.mall.happymall.dto.MgUmPermissionTreeDto;
 import com.mogui.mall.happymall.mapper.MgUmUserMapper;
 import com.mogui.mall.happymall.pojo.MgUmPermission;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -34,4 +36,14 @@ public interface MgUmPermissionService {
      * 查找权限
      */
     List<MgUmPermission> selectPermission(MgUmPermission mgUmPermission);
+
+    /**
+     * 查找权限-分页
+     */
+    List<MgUmPermission> selectPermissionList(String name, Integer type, Integer start, Integer pageSize);
+
+    /**
+     * 查找权限资源数
+     */
+    List<MgUmPermissionTreeDto> selectPermissionTree();
 }

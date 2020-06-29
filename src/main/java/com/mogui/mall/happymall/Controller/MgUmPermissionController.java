@@ -2,6 +2,7 @@ package com.mogui.mall.happymall.Controller;
 
 import com.mogui.mall.happymall.Seivice.MgUmPermissionService;
 import com.mogui.mall.happymall.common.ResponseVO;
+import com.mogui.mall.happymall.mapper.MgUmPermissionMapper;
 import com.mogui.mall.happymall.pojo.MgUmPermission;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,13 +62,39 @@ public class MgUmPermissionController {
         }
     }
 
-    @ApiOperation(value="修改权限")
+    @ApiOperation(value="获取权限")
     @PostMapping(value = "/selectPermission")
     @ResponseBody
     public String selectPermission(@RequestBody MgUmPermission mgUmPermission){
         List<MgUmPermission> mgUmPermissions = mgUmPermissionService.selectPermission(mgUmPermission);
-
         return ResponseVO.build().setData(mgUmPermissions).toJSON();
+    }
 
+    @ApiOperation(value="获取一级菜单资源")
+    @GetMapping(value = "/getMenuList")
+    @ResponseBody
+    public String getMenuList(@RequestParam String name,@RequestParam Integer type,
+                              @RequestParam Integer start,@RequestParam Integer pageSize){
+
+        List<MgUmPermission> mgUmPermissions = mgUmPermissionService.selectPermissionList(name,type,start,pageSize);
+        return ResponseVO.build().setData(mgUmPermissions).toJSON();
+    }
+
+    @ApiOperation(value="获取二级菜单资源")
+    @GetMapping(value = "/getSubmenuList")
+    @ResponseBody
+    public String getSubmenuList(@RequestParam Integer pid){
+        MgUmPermission mgUmPermission = new MgUmPermission();
+        mgUmPermission.setPid(pid);
+        List<MgUmPermission> mgUmPermissions = mgUmPermissionService.selectPermission(mgUmPermission);
+        return ResponseVO.build().setData(mgUmPermissions).toJSON();
+    }
+
+    @ApiOperation(value="查找资源权限树")
+    @GetMapping(value = "/selectPermissionTree")
+    @ResponseBody
+    public String selectPermissionTree(){
+        List<MgUmPermission> mgUmPermissions = mgUmPermissionService.selectPermissionTree();
+        return ResponseVO.build().setData(mgUmPermissions).toJSON();
     }
 }

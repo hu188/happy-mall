@@ -21,14 +21,14 @@
         values (#{pid},#{name},#{value},#{icon},#{type},#{uri},#{status},#{sort},NOW())
     </insert>
     <delete id="deletePermission">
-        delete from mg_um_permission where id = #{id} and pid = #{id}
+        delete from mg_um_permission where id = #{id} or pid = #{id}
     </delete>
     <update id="updatePermission">
         update
             mg_um_permission
         <set>
-            <if test=" name !='' and name != null ">
-                set name = #{name},
+            <if test="name !='' and name != null ">
+                 name = #{name},
             </if>
             <if test=" value !='' and value != null ">
                  value = #{value},
@@ -49,7 +49,7 @@
                 sort = #{sort}
             </if>
         </set>
-
+        where id = #{id}
     </update>
 
     <select id="selectPermission" resultType="com.mogui.mall.happymall.pojo.MgUmPermission" parameterType="com.mogui.mall.happymall.pojo.MgUmPermission">
@@ -67,11 +67,20 @@
         from
             mg_um_permission
         <where>
-            <if test=" name !='' and name != null ">
-                set name = #{name},
+            <if test=" id !='' and id != null ">
+                id = #{id}
             </if>
-            <if test=" status !='' and status != null ">
-                status = #{status},
+            <if test=" pid !='' and pid != null ">
+                and  pid = #{pid}
+            </if>
+            <if test=" name !='' and name != null ">
+                and  name = #{name}
+            </if>
+            <if test=" type !='' and type != null ">
+               and  type =  #{type}
+            </if>
+            <if test=" status != '' and status != null ">
+                and status = #{status}
             </if>
         </where>
     </select>
